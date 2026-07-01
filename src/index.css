@@ -1,0 +1,75 @@
+@import "tailwindcss";
+
+/* 品牌語意色 token（來自 ui-ux-pro-max；天空藍主色 + 冒險橘強調，已過 WCAG）。
+   定義於 @theme 後，bg-primary／text-accent／ring-ring 等 utility 即可使用。 */
+@theme {
+  --color-primary: #0ea5e9; /* sky-500 */
+  --color-primary-hover: #0284c7; /* sky-600 */
+  --color-accent: #ea580c; /* orange-600，關鍵 CTA */
+  --color-accent-hover: #c2410c; /* orange-700 */
+  --color-background: #f0f9ff; /* sky-50 */
+  --color-ring: #0ea5e9;
+}
+
+:root {
+  font-family: -apple-system, "Noto Sans TC", "PingFang TC", "Microsoft JhengHei",
+    system-ui, sans-serif;
+}
+
+/* 浮動吉祥物：持續 ±45° 擺動（rock），點擊時彈跳（bounce）。
+   擺動與彈跳分屬不同 DOM 層，避免 transform 互相覆蓋。
+   keyframes 收尾停在中性狀態，配合 reduced-motion 降為靜止直立。 */
+@keyframes mascot-swing {
+  /* 節拍器：兩端極角停頓（ease-in-out 在 0/50/100% 放慢）、中央快速掃過；
+     起訖同為 +45deg，循環無縫銜接。 */
+  0% {
+    transform: rotate(11deg);
+  }
+  50% {
+    transform: rotate(-11deg);
+  }
+  100% {
+    transform: rotate(11deg);
+  }
+}
+@keyframes mascot-bounce {
+  0% {
+    transform: translateY(0) scale(1);
+  }
+  30% {
+    transform: translateY(-22px) scale(1.06);
+  }
+  55% {
+    transform: translateY(0) scale(0.96);
+  }
+  75% {
+    transform: translateY(-10px) scale(1.02);
+  }
+  100% {
+    transform: translateY(0) scale(1);
+  }
+}
+.mascot-swing {
+  /* 支點在底部中央：像節拍器／鐘擺，從底座左右擺。 */
+  transform-origin: bottom center;
+  animation: mascot-swing 3.4s ease-in-out infinite;
+}
+.mascot-bounce {
+  animation: mascot-bounce 0.6s ease;
+}
+
+/* 尊重「減少動態」系統設定：關閉過場與動畫。 */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  /* 擺動收尾在 45deg，reduced-motion 下直接關閉並回正，避免靜止歪斜。 */
+  .mascot-swing {
+    animation: none !important;
+    transform: none !important;
+  }
+}

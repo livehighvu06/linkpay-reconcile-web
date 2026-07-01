@@ -1,0 +1,8 @@
+node_modules/
+dist/
+.DS_Store
+*.local
+*.tsbuildinfo
+
+# 本機開發輔助 skill，不進公開 repo
+.claude/
