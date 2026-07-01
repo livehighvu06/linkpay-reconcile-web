@@ -91,24 +91,24 @@ export default function ReconcileTab() {
       <section className="mb-4 rounded-xl border border-slate-200 bg-white p-5 shadow-sm transition-shadow hover:shadow-md">
         <StepHeading step={1} title="上傳兩份檔案" />
         <div className="flex flex-col gap-4">
-          <div className="flex flex-wrap items-center gap-3">
-            <label className="w-28 text-sm text-slate-500">業績表（.xlsx）</label>
+          <div className="flex min-w-0 flex-col gap-1.5">
+            <label className="text-sm text-slate-500">業績表（.xlsx）</label>
             <input
               ref={perfInputRef}
               type="file"
               accept=".xlsx"
               onChange={(e) => setPerfFile(e.target.files?.[0] ?? null)}
-              className={fileInput}
+              className={`${fileInput} w-full min-w-0`}
             />
           </div>
-          <div className="flex flex-wrap items-center gap-3">
-            <label className="w-28 text-sm text-slate-500">LinkPay 訂單（.xls／.xlsx）</label>
+          <div className="flex min-w-0 flex-col gap-1.5">
+            <label className="text-sm text-slate-500">LinkPay 訂單（.xls／.xlsx）</label>
             <input
               ref={linkInputRef}
               type="file"
               accept=".xls,.xlsx"
               onChange={(e) => setLinkFile(e.target.files?.[0] ?? null)}
-              className={fileInput}
+              className={`${fileInput} w-full min-w-0`}
             />
           </div>
           <div className="flex flex-wrap gap-2.5">
